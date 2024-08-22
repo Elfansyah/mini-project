@@ -6,8 +6,29 @@ import { TbArmchair } from "react-icons/tb";
 import AvatarUserEo from "../Profile/AvatarUserProfile";
 import CardEventHome from "./CardEventHome";
 import Pagination from "./Pagination";
+import { getEventFree, getEventPaid } from "@/libs/action/event";
 
 export default function EventPresent() {
+
+    const eventPaid = async () => {
+        try {
+            const res = await getEventPaid()
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const eventFree = async () => {
+        try {
+            const res = await getEventFree()
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     return (
         <div id="SeeEvent">
             <div className="w-full bg-primary pb-20 lg:pb-20">
@@ -42,7 +63,7 @@ export default function EventPresent() {
                             <option value="Semarang">Semarang</option>
                             <option value="Surabaya">Surabaya</option>
                         </select> */}
-                    <select id="Category" className="bg-white text-primary pr-10 text-center rounded-md">
+                        <select id="Category" className="bg-white text-primary pr-10 text-center rounded-md">
                             <option value="Category" className="text-gray-500">Category</option>
                             <option value="Film">Film</option>
                             <option value="Music">Music</option>

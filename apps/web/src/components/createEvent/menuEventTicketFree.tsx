@@ -1,21 +1,25 @@
 "use client"
 import Image from "next/image"
 import React, { useEffect, useRef, useState } from 'react';
-import Link from "next/link";
 import ModalEventTicket from "./modal_eventpay";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import InputRupiah from "./inputRupiah";
-import { FaRegCaretSquareDown } from "react-icons/fa";
 import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikProps, useFormik } from "formik";
-import { CreateEvent } from "@/types/eo";
-import { Input } from "@nextui-org/react";
 import * as yup from "yup";
 import { RiGalleryUploadFill } from "react-icons/ri";
 import ImagePreview from "./imagePreview";
-import { values } from "cypress/types/lodash";
+import { createEventFree } from "@/libs/action/event";
 
 // import { useAppSelector } from '@/redux/hooks';
+
+export interface FormEventTicketFree {
+    image: File | null,
+    name: string,
+    category: string,
+    date: string,
+    seat: string,
+    location: string,
+    description: string,
+}
 
 
 export default function MenuEventTicketFree () {
@@ -59,16 +63,15 @@ export default function MenuEventTicketFree () {
     }
 
     // SETTINGAN FORMIK
-
-    interface FormEventTicket {
-        image: File | null,
-        name: string,
-        category: string,
-        date: string,
-        seat: string,
-        location: string,
-        description: string,
+    const createEvent = async (data: FormEventTicketFree) => {
+        try {
+            const res = await createEventFree(data)
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
     }
+
 
     const validationSchema = yup.object().shape({
         image: yup.string().required("required fields"),
@@ -80,7 +83,7 @@ export default function MenuEventTicketFree () {
 
     })
 
-    const initialValues: FormEventTicket = {
+    const initialValues: FormEventTicketFree = {
         image: null,
         name: "",
         category: "",
@@ -109,8 +112,10 @@ export default function MenuEventTicketFree () {
                             initialValues={initialValues}
                             validationSchema={validationSchema}
                             onSubmit={(value, action) => {
+                                createEvent(value)
                                 alert(JSON.stringify(value))
                                 action.resetForm()
+                                console.log(value)
                             }}
                         >
                             {({setFieldValue, values}) => {
@@ -164,9 +169,9 @@ export default function MenuEventTicketFree () {
                                                         name="category"
                                                         className="bg-white text-primary pr-10 text-center rounded-md py-[6px] px-[10px]">
                                                         <option selected className="text-gray-200">Category</option>
-                                                        <option value="Music">Music</option>
-                                                        <option value="Film">Film</option>
-                                                        <option value="Games">Games</option>
+                                                        <option value="music">Music</option>
+                                                        <option value="film">Film</option>
+                                                        <option value="game">Games</option>
                                                     </Field>
                                                     <ErrorMessage
                                                         name="category"

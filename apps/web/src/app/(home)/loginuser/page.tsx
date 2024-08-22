@@ -33,7 +33,7 @@ export default function Login() {
                         throw result.msg
                   }
                   createCookie('token', result.token)
-                  router.push('/beranda')
+                  router.push('/home')
                   console.log(result)
                   console.log(ok)
                   toast.info(result.msg)

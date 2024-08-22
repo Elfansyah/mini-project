@@ -1,4 +1,3 @@
-"use client"
 import AboutUs from "@/components/home/aboutus";
 import EventPresent from "@/components/home/event";
 import Testimonial from "@/components/home/testimonial";

@@ -1,32 +1,36 @@
 "use client"
 import Image from "next/image"
 import React, { useEffect, useRef, useState } from 'react';
-import Link from "next/link";
 import ModalEventTicket from "./modal_eventpay";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import InputRupiah from "./inputRupiah";
-import { FaRegCaretSquareDown } from "react-icons/fa";
 import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikProps, useFormik } from "formik";
-import { CreateEvent } from "@/types/eo";
-import { Input } from "@nextui-org/react";
 import * as yup from "yup";
 import { RiGalleryUploadFill } from "react-icons/ri";
 import ImagePreview from "./imagePreview";
-import { values } from "cypress/types/lodash";
+import { createEventPaid } from "@/libs/action/event";
 
 // import { useAppSelector } from '@/redux/hooks';
 
+export interface FormEventTicket {
+    image: File | null,
+    name: string,
+    category: string,
+    date: string,
+    seat: string,
+    location: string,
+    description: string,
+    price: string
+}
 
-export default function MenuEventTicket () {
+export default function MenuEventTicket() {
 
-    
+
     const mediaRef = useRef<HTMLInputElement | null>(null);
 
     const handleFileChange = (event: any, setFieldValue: any) => {
         const file = event.target.files[0]
         console.log(file);
-        
+
         if (file) {
             setFieldValue('image', file)
         }
@@ -59,26 +63,24 @@ export default function MenuEventTicket () {
     }
 
     // SETTINGAN FORMIK
-
-    interface FormEventTicket {
-        image: File | null,
-        name: string,
-        category: string,
-        date: string,
-        seat: string,
-        location: string,
-        description: string,
-        price: string
+    const createEvent = async (data: FormEventTicket) => {
+        try {
+            const res = await createEventPaid(data)
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
+
     const validationSchema = yup.object().shape({
-        image: yup.string().required("required fields"),
-        name: yup.string().required("required fields"),
-        date: yup.string().required("required fields"),
-        seat: yup.string().required("required fields"),
-        location: yup.string().required("required fields"),
-        description: yup.string().required("required fields"),
-        price: yup.string().required("required fields")
+        image: yup.string().required("required fields image"),
+        name: yup.string().required("required fields name"),
+        date: yup.string().required("required fields date"),
+        seat: yup.string().required("required fields seat"),
+        location: yup.string().required("required fields location"),
+        description: yup.string().required("required fields description"),
+        price: yup.string().required("required fields price")
 
     })
 
@@ -112,11 +114,13 @@ export default function MenuEventTicket () {
                             initialValues={initialValues}
                             validationSchema={validationSchema}
                             onSubmit={(value, action) => {
+                                createEvent(value)
                                 alert(JSON.stringify(value))
                                 action.resetForm()
+                                console.log(value)
                             }}
                         >
-                            {({setFieldValue, values}) => {
+                            {({ setFieldValue, values }) => {
                                 return (
                                     <Form>
                                         <h1 className='text-secondary font-bold text-center text-[30px]'>CREATE <span className="text-third">EVENT TICKET</span></h1>
@@ -132,7 +136,7 @@ export default function MenuEventTicket () {
                                                     </label>
                                                     <ImagePreview image={values.image} setFieldValue={setFieldValue} mediaRef={mediaRef} />
                                                     <input
-                                                        onChange={(e : any) => handleFileChange(e, setFieldValue)}
+                                                        onChange={(e: any) => handleFileChange(e, setFieldValue)}
                                                         type="file"
                                                         id="upload"
                                                         name="image"
@@ -167,9 +171,9 @@ export default function MenuEventTicket () {
                                                         name="category"
                                                         className="bg-white text-primary pr-10 text-center rounded-md py-[6px] px-[10px]">
                                                         <option selected className="text-gray-200">Category</option>
-                                                        <option value="Music">Music</option>
-                                                        <option value="Film">Film</option>
-                                                        <option value="Games">Games</option>
+                                                        <option value="music">Music</option>
+                                                        <option value="film">Film</option>
+                                                        <option value="game">Games</option>
                                                     </Field>
                                                     <ErrorMessage
                                                         name="category"
@@ -216,10 +220,10 @@ export default function MenuEventTicket () {
                                             </div>
                                             <div className="pt-5">
                                                 <p className="text-white text-sm">Event Location</p>
-                                                <textarea
+                                                <Field
                                                     name="location"
                                                     className="w-full h-[32px] p-1 text-white text-[14px] rounded-lg bg-transparent border border-solid resize-none"
-                                                    onChange={(e) => setFieldValue("location", e.target.value)}
+                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFieldValue("location", e.target.value)}
                                                 />
                                                 <ErrorMessage
                                                     name="location"

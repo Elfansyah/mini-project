@@ -13,7 +13,6 @@ import { referalCodeGenerator } from "@/helpers/referalcodegenerator"
 export class AuthController {
       async createUserData(req: Request, res: Response) {
             try {
-
                   const newUser = await prisma.user.findFirst({
                         where: {
                               OR: [
@@ -94,11 +93,10 @@ export class AuthController {
                         const currentDate = new Date();
                         const expirationDate = new Date(user.createdAd);
                         expirationDate.setMonth(expirationDate.getMonth() + 3);
-
                         if (currentDate > expirationDate) {
                               await prisma.user.update({
                                     where: { referalnumber: user.referalcode },
-                                    data: { point: { decrement: 10000 } }
+                                    data: { point: { decrement: 10000 }}
                               });
                               await prisma.user.update({
                                     where: { id: user.id },
@@ -106,6 +104,7 @@ export class AuthController {
                               })
                         }  
                   }
+
                   res.status(200).send({
                         status: 'ok',
                         msg: 'Success login user',
