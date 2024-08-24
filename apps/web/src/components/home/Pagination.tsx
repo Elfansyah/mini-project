@@ -6,6 +6,10 @@ export default function Pagination() {
                 <p className="text-secondary">1</p>
                 <button className="transition-all text-white hover:text-third">Next</button>
             </div>
+
+            <div>
+                <h1>hallo</h1>
+            </div>
         </div>
     )
 }
