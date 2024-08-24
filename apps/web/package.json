@@ -1,0 +1,48 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "serve": "next start -p $PORT",
+    "lint": "next lint",
+    "test": "npx cypress verify & cypress run --component"
+  },
+  "dependencies": {
+    "@nextui-org/navbar": "^2.0.36",
+    "@nextui-org/react": "^2.4.6",
+    "@nextui-org/system": "^2.2.5",
+    "@nextui-org/theme": "^2.2.9",
+    "@reduxjs/toolkit": "^2.2.7",
+    "cross-env": "^7.0.3",
+    "formik": "^2.4.6",
+    "framer-motion": "^11.3.23",
+    "js-cookie": "^3.0.5",
+    "metadata": "^0.1.0",
+    "next": "^14.2.5",
+    "react": "^18",
+    "react-datepicker": "^7.3.0",
+    "react-dom": "^18",
+    "react-icons": "^5.2.1",
+    "react-redux": "^9.1.2",
+    "react-toastify": "^10.0.5",
+    "redux-persist": "^6.0.0",
+    "useref": "^1.4.4",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^20",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.20",
+    "cypress": "^13.6.2",
+    "daisyui": "^4.12.10",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.7",
+    "typescript": "^5"
+  }
+}
