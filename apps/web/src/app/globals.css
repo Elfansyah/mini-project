@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    @font-face {
+          font-family: 'bold';
+          font-style: normal;
+          font-weight: 400;
+          font-display: "cabrion";
+          src: url(/font-cabrionfont/Cabrion-Bold.ttf) format('truetype');
+    }
+}
+
+@layer base {
+    @font-face {
+          font-family: 'semi-bold';
+          font-style: normal;
+          font-weight: 400;
+          font-display: "cabrion";
+          src: url(/font-cabrionfont/Cabrion-SemiBold.ttf) format('truetype');
+    }
+}
+
+@layer base {
+    @font-face {
+          font-family: 'normal';
+          font-style: normal;
+          font-weight: 400;
+          font-display: "cabrion";
+          src: url(/font-cabrionfont/Cabrion-Regular.ttf) format('truetype');
+    }
+}
+
+.loading {
+    width: 100px;
+    height: 100px;
+    display: grid;
+}
+.loading::before,
+.loading::after {    
+    content:"";
+    grid-area: 1/1;
+    --c: radial-gradient(farthest-side,#b990d0 92%,#0000);
+    background: 
+      var(--c) 50%  0, 
+      var(--c) 50%  100%, 
+      var(--c) 100% 50%, 
+      var(--c) 0    50%;
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    animation: s2 1s infinite;
+}
+.loading::before {
+  margin:8px;
+  filter:hue-rotate(45deg);
+  background-size: 16px 16px;
+  animation-timing-function: linear
+}
+
+@keyframes s2{ 
+  100%{transform: rotate(.5turn)}
+}
+
