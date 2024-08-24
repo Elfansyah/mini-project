@@ -12,7 +12,7 @@ import { getCookie } from "@/libs/action/server";
 export default function CardEventHomePaid() {
     const [data, setData] = useState<Event[]>([]);
     const getEvent = async () => {
-        const token = await getCookie("token")
+        const token = getCookie("token")
         const event = await fetch("http://localhost:8000/api/event/events/paid", {
             method : "GET",
             headers : {
